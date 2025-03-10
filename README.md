@@ -51,12 +51,15 @@ Browse to
 localhost:9963
 ```
 __Generate task list__ -> Generate a random list but most of the time will include circular dependencies so you will have to press the button a bunch of times until you get a valid list
+
 __Process__ -> process the json in the textarea above.
+
 __Response__ -> Get back a json response containing ordered tasks based on their "requires"
+
 __Bash Script__ -> The __Response__'s commands represented as a bash script
 
 ## Tests
-Test can be ran with
+Tests can be ran with
 ```
 mix test
 ```
@@ -66,7 +69,9 @@ The full suite of tests can be found: `test/crafting_software/process_test.exs`
 ## Project structure
 
 `lib/crafting_software/process.ex` -> logic for processing task list, generating a random list of tasks and casting ordered task list to bash
+
 `lib/crafting_software_web/main_live/index.html.heex` -> Main page templace
+
 `lib/crafting_software_web/main_live/index.ex` -> LiveView module for handling main page logic
 
 ## Improvements

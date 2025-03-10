@@ -4,9 +4,9 @@
       <div class="w-full pr-12 pl-12">
         <div class="sm:flex sm:items-start sm:space-x-8">
           <div class="relative mt-2 sm:mt-0 sm:flex-1">
-            <.form :let={f} for={%{}} phx-submit="process" class="">
+            <.form :let={form} for={%{}} phx-submit="process" class="">
               <.input
-                field={:task_list}
+                field={form[:task_list]}
                 type="textarea"
                 required
                 name="task_list"

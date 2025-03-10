@@ -12,6 +12,7 @@ defmodule CraftingSoftwareWeb.MainLive.Index do
       |> assign(:placeholder_task_list, placeholder_task())
       |> assign(:processed_task_list, "")
       |> assign(:bash_script, [])
+      #|> assign(:form, %{})
 
     {:ok, updated_socket}
   end

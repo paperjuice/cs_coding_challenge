@@ -34,10 +34,7 @@ defmodule CraftingSoftwareWeb.MainLive.Index do
            %{"tasks" => task_list} <- full_data,
            {:ok, processed_data} <- Process.task_list(task_list),
            bash_script <- Process.to_bash(processed_data) do
-        json_response =
-          processed_data
-          |> build_response()
-          |> Jason.encode!(pretty: true)
+        json_response = Jason.encode!(processed_data, pretty: true)
 
         socket
         |> assign(:processed_task_list, json_response)
@@ -96,21 +93,5 @@ defmodule CraftingSoftwareWeb.MainLive.Index do
       ]
     }
     """
-  end
-
-  defp build_response(processed_data) do
-    tasks =
-      Enum.map(processed_data, fn pd ->
-        # TODO: remove "requires" directly in the processing function instead of
-        # iterrating through again
-        %{
-          "command" => pd["command"],
-          "name" => pd["name"]
-        }
-      end)
-
-    %{
-      "tasks" => tasks
-    }
   end
 end

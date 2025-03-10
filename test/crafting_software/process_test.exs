@@ -85,7 +85,6 @@ defmodule CraftingSoftware.ProcessTest do
 
       {:ok, actual_data} =
         Process.task_list(data)
-        |> IO.inspect(label: HELLO, limit: :infinity, printable_limit: :infinity)
 
       expected_data = [
         %{"command" => "task-4", "name" => "task-4"},

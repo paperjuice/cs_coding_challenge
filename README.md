@@ -60,3 +60,21 @@ Test can be ran with
 ```
 mix test
 ```
+
+The full suite of tests can be found: `test/crafting_software/process_test.exs`
+
+## Project structure
+
+`lib/crafting_software/process.ex` -> logic for processing task list, generating a random list of tasks and casting ordered task list to bash
+`lib/crafting_software_web/main_live/index.html.heex` -> Main page templace
+`lib/crafting_software_web/main_live/index.ex` -> LiveView module for handling main page logic
+
+## Improvements
+* Improve the processing function to not duplicate tasks and remove the need for Enum.uniq/1
+* Web tests
+* Use @callback for public functions to facilitate mocking and transparency
+* CI/CD
+* Better specs
+* Git hooks to mix format/credo on git add
+* Improve logging
+* Instead of starting the App in interactive shell, start in executable (mix release)

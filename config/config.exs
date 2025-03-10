@@ -9,7 +9,7 @@ import Config
 
 # Configures the endpoint
 config :crafting_software, CraftingSoftwareWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "localhost", port: 9963],
   adapter: Bandit.PhoenixAdapter,
   pubsub_server: CraftingSoftware.PubSub,
   render_errors: [

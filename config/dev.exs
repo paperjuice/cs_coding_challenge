@@ -9,7 +9,10 @@ import Config
 config :crafting_software, CraftingSoftwareWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [ip: {127, 0, 0, 1}, port: 9963],
+  http: [
+    ip: {0, 0, 0, 0},
+    port: 9963
+  ],
   check_origin: false,
   code_reloader: true,
   debug_errors: true,

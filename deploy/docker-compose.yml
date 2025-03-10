@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  crafting_software:
+    container_name: "crafting_software"
+    tty: true
+    build:
+      dockerfile: ./deploy/Dockerfile
+      context: ../.
+      no_cache: false
+    ports:
+      - "9963:9963"
+    networks:
+      - cs_network
+
+networks:
+  cs_network:
+    name: cs_network

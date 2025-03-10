@@ -50,6 +50,8 @@ Browse to
 ```
 localhost:9963
 ```
+<img width="1496" alt="image" src="https://github.com/user-attachments/assets/fb2726ff-a6d7-42a1-8e76-1ed131835099" />
+
 __Generate task list__ -> Generate a random list but most of the time will include circular dependencies so you will have to press the button a bunch of times until you get a valid list
 
 __Process__ -> process the json in the textarea above.

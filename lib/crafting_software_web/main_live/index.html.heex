@@ -1,0 +1,83 @@
+
+<div class="flex">
+  <div class="py-8 bg-white w-[900px]">
+    <div class="">
+      <div class="w-full pr-12 pl-12">
+        <div class="sm:flex sm:items-start sm:space-x-8">
+          <div class="relative mt-2 sm:mt-0 sm:flex-1">
+            <div class="absolute top-0 left-0 flex items-center pt-4 pl-4 pointer-events-none">
+              <svg
+                class="w-5 h-5 text-gray-400"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                />
+              </svg>
+            </div>
+
+            <.form :let={f} for={%{}} s phx-submit="process" class="">
+        <.input
+          field={:task_list}
+          type="textarea"
+          required
+          name="task_list"
+          value={@placeholder_task_list}
+          label="Provide a list of tasks"
+          placeholder={@placeholder_task_list}
+          rows="12"
+        />
+
+
+            <div class="py-3 mx-auto max-w-7xl ">
+              <button
+                type="button"
+                phx-click="generate"
+                class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900 mr-1"
+              >
+                Generate task list
+              </button>
+
+              <button
+                class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold leading-5 text-white transition-all duration-200 bg-indigo-600 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 hover:bg-indigo-500"
+              >
+                Process
+              </button>
+            </div>
+            </.form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-96 mx-auto mt-8 mr-8 overflow-hidden bg-white shadow-xl md:mt-12 rounded-xl shadow-gray-400/10">
+    <div class="p-6">
+      <div class="sm:flex">
+        <p class="mt-2 text-base font-medium text-gray-500">Response</p>
+      </div>
+      <p class="mt-4 text-sm font-medium text-gray-900">
+        <%= @processed_task_list %>
+      </p>
+    </div>
+  </div>
+
+  <div class="w-96 mx-auto mt-8 mr-8 overflow-hidden bg-white shadow-xl md:mt-12 rounded-xl shadow-gray-400/10">
+    <div class="p-6">
+      <div class="sm:flex">
+        <p class="mt-2 mb-4 text-base font-medium text-gray-500">Bash Script</p>
+      </div>
+      <%= for x <- @bash_script do %>
+      <p class="text-sm font-medium text-gray-900">
+        <%= x %>
+      </p>
+      <% end %>
+    </div>
+  </div>
+</div>

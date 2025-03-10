@@ -34,7 +34,6 @@ defmodule CraftingSoftwareWeb.MainLive.Index do
            %{"tasks" => task_list} <- full_data,
            {:ok, processed_data} <- Process.task_list(task_list),
            bash_script <- Process.to_bash(processed_data) do
-
         json_response =
           processed_data
           |> build_response()
@@ -44,10 +43,10 @@ defmodule CraftingSoftwareWeb.MainLive.Index do
         |> assign(:processed_task_list, json_response)
         |> assign(:bash_script, bash_script)
         |> put_flash(:info, "Processing successful")
-    else
-      {:error, reason} ->
-        put_flash(socket, :error, "Processing failed with reason: #{inspect(reason)}")
-    end
+      else
+        {:error, reason} ->
+          put_flash(socket, :error, "Processing failed with reason: #{inspect(reason)}")
+      end
 
     {:noreply, updated_socket}
   end
@@ -59,59 +58,59 @@ defmodule CraftingSoftwareWeb.MainLive.Index do
   defp placeholder_task do
     """
     {
-      "tasks": [
-        {
-          "name": "task-1"
+    "tasks": [
+      {
+        "name": "task-1"
+        ,
+        "command": "touch /tmp/file1"
+      },
+      {
+        "name": "task-2"
+        ,
+        "command":"cat /tmp/file1"
+        ,
+        "requires":[
+          "task-3"
+        ]
+      },
+      {
+        "name": "task-3"
+        ,
+        "command": "echo 'Hello World!' > /tmp/file1"
+        ,
+        "requires":[
+          "task-1"
+        ]
+      },
+      {
+        "name": "task-4"
+        ,
+        "command": "rm /tmp/file1"
+        ,
+        "requires":[
+          "task-2"
           ,
-          "command": "touch /tmp/file1"
-        },
-        {
-          "name": "task-2"
-          ,
-          "command":"cat /tmp/file1"
-          ,
-          "requires":[
-            "task-3"
-          ]
-        },
-        {
-          "name": "task-3"
-          ,
-          "command": "echo 'Hello World!' > /tmp/file1"
-          ,
-          "requires":[
-            "task-1"
-          ]
-        },
-        {
-          "name": "task-4"
-          ,
-          "command": "rm /tmp/file1"
-          ,
-          "requires":[
-            "task-2"
-            ,
-            "task-3"
-          ]
-        }
+          "task-3"
         ]
       }
-      """
+      ]
+    }
+    """
   end
 
   defp build_response(processed_data) do
-    tasks = Enum.map(processed_data, fn pd ->
-      #TODO: remove "requires" directly in the processing function instead of
-      # iterrating through again
-      %{
-        "command" => pd["command"],
-        "name" => pd["name"]
-      }
-    end)
+    tasks =
+      Enum.map(processed_data, fn pd ->
+        # TODO: remove "requires" directly in the processing function instead of
+        # iterrating through again
+        %{
+          "command" => pd["command"],
+          "name" => pd["name"]
+        }
+      end)
 
     %{
       "tasks" => tasks
     }
   end
-
 end

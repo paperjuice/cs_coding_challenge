@@ -1,4 +1,3 @@
-
 <div class="flex">
   <div class="py-8 bg-white w-[900px]">
     <div class="">
@@ -23,33 +22,30 @@
             </div>
 
             <.form :let={f} for={%{}} s phx-submit="process" class="">
-        <.input
-          field={:task_list}
-          type="textarea"
-          required
-          name="task_list"
-          value={@placeholder_task_list}
-          label="Provide a list of tasks"
-          placeholder={@placeholder_task_list}
-          rows="12"
-        />
+              <.input
+                field={:task_list}
+                type="textarea"
+                required
+                name="task_list"
+                value={@placeholder_task_list}
+                label="Provide a list of tasks"
+                placeholder={@placeholder_task_list}
+                rows="12"
+              />
 
+              <div class="py-3 mx-auto max-w-7xl ">
+                <button
+                  type="button"
+                  phx-click="generate"
+                  class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900 mr-1"
+                >
+                  Generate task list
+                </button>
 
-            <div class="py-3 mx-auto max-w-7xl ">
-              <button
-                type="button"
-                phx-click="generate"
-                class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold leading-5 text-gray-600 transition-all duration-200 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 hover:bg-gray-50 hover:text-gray-900 mr-1"
-              >
-                Generate task list
-              </button>
-
-              <button
-                class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold leading-5 text-white transition-all duration-200 bg-indigo-600 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 hover:bg-indigo-500"
-              >
-                Process
-              </button>
-            </div>
+                <button class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold leading-5 text-white transition-all duration-200 bg-indigo-600 border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 hover:bg-indigo-500">
+                  Process
+                </button>
+              </div>
             </.form>
           </div>
         </div>
@@ -63,7 +59,7 @@
         <p class="mt-2 text-base font-medium text-gray-500">Response</p>
       </div>
       <p class="mt-4 text-sm font-medium text-gray-900">
-        <%= @processed_task_list %>
+        {@processed_task_list}
       </p>
     </div>
   </div>
@@ -74,9 +70,9 @@
         <p class="mt-2 mb-4 text-base font-medium text-gray-500">Bash Script</p>
       </div>
       <%= for x <- @bash_script do %>
-      <p class="text-sm font-medium text-gray-900">
-        <%= x %>
-      </p>
+        <p class="text-sm font-medium text-gray-900">
+          {x}
+        </p>
       <% end %>
     </div>
   </div>

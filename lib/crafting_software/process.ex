@@ -27,18 +27,20 @@ defmodule CraftingSoftware.Process do
     process_task(task_list, [])
   end
 
+  @doc """
+  'processed_task_list' is of type task_list/1 return value
+  """
+  @spec to_bash(map()) :: String.t()
   def to_bash(processed_task_list) do
-    init_acc =[
-      "#!/usr/bin/env bash"
-    ]
-
-    processed_task_list
-    |> Enum.reduce(init_acc, fn task, acc ->
-      [task["command"]|acc]
-    end)
-    |> Enum.reverse()
+    do_to_bash(processed_task_list)
   end
 
+  @doc """
+  Will generate a task list.
+  WARNING: there is no logic against circular dependency.
+  Very likely that will happen
+  """
+  @spec generate_random_task_list() :: map()
   def generate_random_task_list do
     generate()
   end
@@ -60,14 +62,15 @@ defmodule CraftingSoftware.Process do
     end
   end
 
-
   defp handle_requires(_, nil, _collection, _, result), do: {:ok, result}
 
   defp handle_requires(requires, task, _collection, [], result) when requires in [[], nil],
     do: {:ok, [task | result]}
 
   defp handle_requires(requires, task, collection, temp, result) when requires in [[], nil] do
-    updated_result = result ++ [task]
+    {_, updated_task} = Map.pop(task, "requires")
+    updated_result = result ++ [updated_task]
+
     updated_temp = remove_task_from_collection(task, temp)
     updated_collection = remove_task_from_collection(task, collection)
 
@@ -112,16 +115,16 @@ defmodule CraftingSoftware.Process do
     max_task_num = Enum.random(4..15)
 
     task_list =
-    Enum.map(1..max_task_num, fn counter ->
-      task = %{
-        "command" => "echo 'task-#{counter}'",
-        "name" => "task-#{counter}"
-      }
+      Enum.map(1..max_task_num, fn counter ->
+        task = %{
+          "command" => "echo 'task-#{counter}'",
+          "name" => "task-#{counter}"
+        }
 
-      0..4
-      |> Enum.random()
-      |> requires_task_gen(counter, max_task_num, task)
-    end)
+        0..4
+        |> Enum.random()
+        |> requires_task_gen(counter, max_task_num, task)
+      end)
 
     %{"tasks" => task_list}
   end
@@ -142,5 +145,15 @@ defmodule CraftingSoftware.Process do
       |> Enum.uniq()
 
     Map.put(task, "requires", requires)
+  end
+
+  defp do_to_bash(processed_task_list) do
+    init_acc = ["#!/usr/bin/env bash"]
+
+    processed_task_list
+    |> Enum.reduce(init_acc, fn task, acc ->
+      [task["command"] | acc]
+    end)
+    |> Enum.reverse()
   end
 end

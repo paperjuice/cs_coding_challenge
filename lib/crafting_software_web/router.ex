@@ -14,8 +14,6 @@ defmodule CraftingSoftwareWeb.Router do
     plug :accepts, ["json"]
   end
 
-
-
   live_session :default do
     scope "/", CraftingSoftwareWeb do
       pipe_through [:browser]
@@ -23,9 +21,6 @@ defmodule CraftingSoftwareWeb.Router do
       live "/", MainLive.Index, :index
     end
   end
-
-
-
 
   # Other scopes may use custom stacks.
   # scope "/api", CraftingSoftwareWeb do

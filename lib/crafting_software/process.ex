@@ -1,6 +1,16 @@
 defmodule CraftingSoftware.Process do
   @moduledoc """
   Module for handling general business logic
+
+  For task_list/1, the general logic for traversing the graph is:
+  1. If a task has no "requires",
+  we prepend to the result.
+  2. If it does have the "requires" list, we pop first element from the requires list,
+  add the task + requires list - hd of requires list to a temp list.
+  3. We search task list for the element we just popped. If again there is a requires list,
+  we do the exact same as previous step (2), otherwise we do step 1.
+  4. We repeat the process until requires list is empty. At this point we prepend to the result list.
+  5. Next step is to get the head of the temp list mentioned before and repeat the whole process.
   """
 
   require Logger
